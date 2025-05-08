@@ -34,7 +34,7 @@ namespace BeaverBuddies.Connect
     {
         private DialogBoxShower _dialogBoxShower;
         private InputBoxShower _inputBoxShower;
-        private ClientConnectionService _clientConnectionService;
+        public ClientConnectionService _clientConnectionService;
         private ConfigIOService _configIOService;
         private ILoc _loc;
 

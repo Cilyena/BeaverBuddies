@@ -16,7 +16,7 @@ namespace TimberNet
     public class TimberClient : TimberNetBase
     {
 
-        private readonly TcpClient client;
+        public readonly TcpClient client;
 
         public readonly string address;
         public readonly int port;

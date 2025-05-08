@@ -24,7 +24,7 @@ namespace BeaverBuddies.Connect
         private GameSaveRepository _gameSaveRepository;
         private DialogBoxShower _dialogBoxShower;
         private UrlOpener _urlOpener;
-        private ClientEventIO client;
+        public ClientEventIO client;
 
         public ClientConnectionService(
             GameSceneLoader gameSceneLoader,

@@ -10,7 +10,7 @@ namespace BeaverBuddies.IO
     public abstract class NetIOBase<T> : EventIO where T : TimberNetBase
     {
 
-        protected T netBase;
+        public T netBase;
         public abstract bool RecordReplayedEvents { get; }
         public abstract bool ShouldSendHeartbeat { get; }
         public abstract UserEventBehavior UserEventBehavior { get; }

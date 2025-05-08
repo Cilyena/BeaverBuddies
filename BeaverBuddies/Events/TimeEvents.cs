@@ -1,4 +1,5 @@
-﻿using BeaverBuddies.IO;
+﻿using BeaverBuddies.Connect;
+using BeaverBuddies.IO;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -181,6 +182,24 @@ namespace BeaverBuddies.Events
     {
         static bool Prefix()
         {
+            // Retrieve the instance of ClientConnectionService via SingletonManager
+            //ClientConnectionService clientConnectionService = SingletonManager.GetSingleton<ClientConnectionService>();
+            ClientConnectionService clientConnectionService = SingletonManager.GetSingleton<ClientConnectionUI>()._clientConnectionService;
+            Plugin.Log($"GameOptionsBoxShowPatcher.Prefix: clientConnectionService is {(clientConnectionService == null ? "null" : "not null")}.");
+
+            // Check if the client is disconnected
+            Plugin.Log($"GameOptionsBoxShowPatcher.Prefix: clientConnectionService.client is {(clientConnectionService?.client == null ? "null" : "not null")}.");
+            Plugin.Log($"GameOptionsBoxShowPatcher.Prefix: clientConnectionService.client.netBase is {(clientConnectionService?.client?.netBase == null ? "null" : "not null")}.");
+            Plugin.Log($"GameOptionsBoxShowPatcher.Prefix: clientConnectionService.client.netBase.client.Connected is {(clientConnectionService?.client?.netBase?.client.Connected == true ? "true" : "false")}.");
+            if (clientConnectionService != null && (clientConnectionService.client == null ||
+                clientConnectionService.client.netBase == null ||
+                !clientConnectionService.client.netBase.client.Connected))
+            {
+                // If the client is disconnected, allow the menu to be displayed
+                Plugin.Log("GameOptionsBoxShowPatcher.Prefix: Client is disconnected, allowing menu to be displayed.");
+                return true;
+            }
+
             return ReplayEvent.DoPrefix(() =>
             {
                 return new ShowOptionsMenuEvent();
